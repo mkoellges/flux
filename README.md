@@ -19,7 +19,9 @@ export GITHUB_TOKEN=XXXXXXXXXXXXXXXXXXXXXXXXXXX
 export GITHUB_USER="USERNAME"
 export GITHUB_REPO="GITREPONAME"
 
-flux bootstrap github --owner=${GITHUB_USER} --repository=${GITHUB_REPO} --team=dev1 --team=dev2 --path=clusters/docker-desktop
+export CLUSTER_NAME="docker-desktop"
+
+flux bootstrap github --owner=${GITHUB_USER} --repository=${GITHUB_REPO} --team=dev1 --team=dev2 --path=clusters/${CLUSTER_NAME}
 ```
 
 ## Clone your repository
@@ -36,7 +38,7 @@ Now we create the base of the directories that will handle the Flux configuratio
 
 ```bash
 cd ./fleet-infra
-flux create kustomization tenants --namespace=flux-system --source=GitRepository/flux-system --path ./tenants/staging --prune --interval=3m --export >> clusters/docker-desktop/tenants.yaml
+flux create kustomization tenants --namespace=flux-system --source=GitRepository/flux-system --path ./tenants/staging --prune --interval=3m --export >> clusters/${CLUSTER_NAME}/tenants.yaml
 ```
 
 > :warning: Remember to commit and push your code each time you make a change so that FluxCD can apply the changes.
@@ -220,11 +222,11 @@ EOF
 ## Download Kyverno distribution
 
 ```bash
-mkdir -p clusters/docker-desktop/kyverno
+mkdir -p clusters/${CLUSTER_NAME}/kyverno
 ```
 
 ```bash
-wget https://raw.githubusercontent.com/kyverno/kyverno/v1.5.4/definitions/release/install.yaml -O clusters/docker-desktop/kyverno/kyverno-components.yaml
+wget https://raw.githubusercontent.com/kyverno/kyverno/v1.5.4/definitions/release/install.yaml -O clusters/${CLUSTER_NAME}/kyverno/kyverno-components.yaml
 ```
 
 > :warning: Remember to commit and push your code each time you make a change so that FluxCD can apply the changes.
@@ -232,11 +234,11 @@ wget https://raw.githubusercontent.com/kyverno/kyverno/v1.5.4/definitions/releas
 ## Install Kyverno on cluster
 
 ```bash
-flux create kustomization kyverno --prune true --interval 10m --path ./clusters/docker-desktop/kyverno --wait true --source GitRepository/flux-system --export > ./clusters/docker-desktop/kyverno/sync.yaml
+flux create kustomization kyverno --prune true --interval 10m --path ./clusters/${CLUSTER_NAME}/kyverno --wait true --source GitRepository/flux-system --export > ./clusters/${CLUSTER_NAME}/kyverno/sync.yaml
 ```
 
 ```bash
-cd ./clusters/docker-desktop/kyverno/ && kustomize create --autodetect
+cd ./clusters/${CLUSTER_NAME}/kyverno/ && kustomize create --autodetect
 ```
 
 ```bash
@@ -248,11 +250,11 @@ cd -
 ## Add Kyverno policy to enforce use of Service Account
 
 ```bash
-mkdir -p clusters/docker-desktop/kyverno-policies
+mkdir -p clusters/${CLUSTER_NAME}/kyverno-policies
 ```
 
 ```bash
-cat << EOF | tee ./clusters/docker-desktop/kyverno-policies/enforce-service-account.yaml
+cat << EOF | tee ./clusters/${CLUSTER_NAME}/kyverno-policies/enforce-service-account.yaml
 ---
 apiVersion: kyverno.io/v1
 kind: ClusterPolicy
@@ -322,11 +324,11 @@ EOF
 ```
 
 ```bash
-flux create kustomization kyverno-policies --prune true --interval 10m --path ./clusters/docker-desktop/kyverno-policies --wait true --source GitRepository/flux-system --export > ./clusters/docker-desktop/kyverno-policies/sync.yaml
+flux create kustomization kyverno-policies --prune true --interval 10m --path ./clusters/${CLUSTER_NAME}/kyverno-policies --wait true --source GitRepository/flux-system --export > ./clusters/${CLUSTER_NAME}/kyverno-policies/sync.yaml
 ```
 
 ```bash
-cd ./clusters/docker-desktop/kyverno-policies/ && kustomize create --autodetect
+cd ./clusters/${CLUSTER_NAME}/kyverno-policies/ && kustomize create --autodetect
 ```
 
 ```bash
@@ -338,7 +340,7 @@ cd -
 ## Apply Kyverno policy
 
 ```bash
-flux create kustomization kyverno-policies --prune true --interval 5m --path ./clusters/docker-desktop/kyverno-policies --source GitRepository/flux-system --depends-on kyverno --export > ./clusters/docker-desktop/kyverno-policies/sync.yaml
+flux create kustomization kyverno-policies --prune true --interval 5m --path ./clusters/${CLUSTER_NAME}/kyverno-policies --source GitRepository/flux-system --depends-on kyverno --export > ./clusters/${CLUSTER_NAME}/kyverno-policies/sync.yaml
 ```
 
 > :warning: Remember to commit and push your code each time you make a change so that FluxCD can apply the changes.
@@ -346,7 +348,7 @@ flux create kustomization kyverno-policies --prune true --interval 5m --path ./c
 ## Add Kyverno dependency for staging tenant
 
 ```bash
-flux create kustomization tenants --prune true --interval 5m --path ./tenants/staging --source GitRepository/flux-system --depends-on kyverno-policies --export > ./clusters/docker-desktop/tenants.yaml
+flux create kustomization tenants --prune true --interval 5m --path ./tenants/staging --source GitRepository/flux-system --depends-on kyverno-policies --export > ./clusters/${CLUSTER_NAME}/tenants.yaml
 ```
 
 > :warning: Remember to commit and push your code each time you make a change so that FluxCD can apply the changes.
@@ -368,15 +370,15 @@ flux create helmrelease dev2-carapuce --namespace=dev2-ns --service-account=dev2
 ## Install Prometheus
 
 ```bash
-mkdir -p clusters/docker-desktop/kube-prometheus-stack
+mkdir -p clusters/${CLUSTER_NAME}/kube-prometheus-stack
 ```
 
 ```bash
-flux create source helm prometheus-community --url=https://prometheus-community.github.io/helm-charts --interval=1m --export > clusters/docker-desktop/kube-prometheus-stack/sync.yaml
+flux create source helm prometheus-community --url=https://prometheus-community.github.io/helm-charts --interval=1m --export > clusters/${CLUSTER_NAME}/kube-prometheus-stack/sync.yaml
 ```
 
 ```bash
-cat << EOF | tee ./clusters/docker-desktop/kube-prometheus-stack/values.yaml
+cat << EOF | tee ./clusters/${CLUSTER_NAME}/kube-prometheus-stack/values.yaml
 alertmanager:
   enabled: false
 grafana:
@@ -392,7 +394,7 @@ EOF
 ```
 
 ```bash
-flux create helmrelease kube-prometheus-stack --chart kube-prometheus-stack --source HelmRepository/prometheus-community --chart-version 31.0.0 --crds CreateReplace --export --target-namespace monitoring --create-target-namespace true --values ./clusters/docker-desktop/kube-prometheus-stack/values.yaml >> ./clusters/docker-desktop/kube-prometheus-stack/sync.yaml
+flux create helmrelease kube-prometheus-stack --chart kube-prometheus-stack --source HelmRepository/prometheus-community --chart-version 31.0.0 --crds CreateReplace --export --target-namespace monitoring --create-target-namespace true --values ./clusters/${CLUSTER_NAME}/kube-prometheus-stack/values.yaml >> ./clusters/${CLUSTER_NAME}/kube-prometheus-stack/sync.yaml
 ```
 
 > :warning: Remember to commit and push your code each time you make a change so that FluxCD can apply the changes.
@@ -400,11 +402,11 @@ flux create helmrelease kube-prometheus-stack --chart kube-prometheus-stack --so
 ## Install Flux Grafana dashboards
 
 ```bash
-mkdir -p clusters/docker-desktop/kube-prometheus-stack-config
+mkdir -p clusters/${CLUSTER_NAME}/kube-prometheus-stack-config
 ```
 
 ```bash
-cat << EOF | tee ./clusters/docker-desktop/kube-prometheus-stack-config/podmonitor.yaml
+cat << EOF | tee ./clusters/${CLUSTER_NAME}/kube-prometheus-stack-config/podmonitor.yaml
 apiVersion: monitoring.coreos.com/v1
 kind: PodMonitor
 metadata:
@@ -433,15 +435,15 @@ EOF
 ```
 
 ```bash
-wget https://raw.githubusercontent.com/fluxcd/flux2/main/manifests/monitoring/grafana/dashboards/cluster.json -P ./clusters/docker-desktop/kube-prometheus-stack-config/
+wget https://raw.githubusercontent.com/fluxcd/flux2/main/manifests/monitoring/grafana/dashboards/cluster.json -P ./clusters/${CLUSTER_NAME}/kube-prometheus-stack-config/
 ```
 
 ```bash
-wget https://raw.githubusercontent.com/fluxcd/flux2/main/manifests/monitoring/grafana/dashboards/control-plane.json -P ./clusters/docker-desktop/kube-prometheus-stack-config/
+wget https://raw.githubusercontent.com/fluxcd/flux2/main/manifests/monitoring/grafana/dashboards/control-plane.json -P ./clusters/${CLUSTER_NAME}/kube-prometheus-stack-config/
 ```
 
 ```bash
-cat << EOF | tee ./clusters/docker-desktop/kube-prometheus-stack-config/kustomization.yaml
+cat << EOF | tee ./clusters/${CLUSTER_NAME}/kube-prometheus-stack-config/kustomization.yaml
 apiVersion: kustomize.config.k8s.io/v1beta1
 kind: Kustomization
 namespace: flux-system
