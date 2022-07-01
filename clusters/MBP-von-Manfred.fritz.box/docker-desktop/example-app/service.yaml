@@ -6,10 +6,10 @@ metadata:
   namespace: flux-system
 spec:
   interval: 1m0s
-  targetNamespace: dempers
+  targetNamespace: example
   sourceRef:
     kind: GitRepository
-    name: marcel-dempers
+    name: example-app
     namespace: flux-system
-  path: "./kubernetes/services/"
+  path: "./services/"
   prune: true
