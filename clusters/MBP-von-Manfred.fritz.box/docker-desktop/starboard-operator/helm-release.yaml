@@ -1,13 +1,4 @@
 ---
-apiVersion: source.toolkit.fluxcd.io/v1beta2
-kind: HelmRepository
-metadata:
-  name: starboard-system
-spec:
-  interval: 1m
-  url: https://aquasecurity.github.io/helm-charts/
-
----
 apiVersion: helm.toolkit.fluxcd.io/v2beta1
 kind: HelmRelease
 metadata:
@@ -17,7 +8,7 @@ spec:
   releaseName: starboard-system
   chart:
     spec:
-      chart_version: 0.10.3
+      chart: starboard-operator
       sourceRef:
         kind: HelmRepository
         name: starboard-system
