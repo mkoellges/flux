@@ -1,0 +1,15 @@
+---
+apiVersion: kustomize.toolkit.fluxcd.io/v1beta2
+kind: Kustomization
+metadata:
+  name: example-app
+  namespace: flux-system
+spec:
+  interval: 1m0s
+  targetNamespace: dempers
+  sourceRef:
+    kind: GitRepository
+    name: marcel-dempers
+    namespace: flux-system
+  path: "./kubernetes/deployments"
+  prune: true
