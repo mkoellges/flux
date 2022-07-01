@@ -40,4 +40,3 @@ kubectl create ns app
 ```
 
 Now create the application by defining the gitrepository and the definition for the kustomization controller. These Repositories will be stored in the flux-system namespace. The application will be deployed in the targetNamespace - defined in the kustomization section of teh apllication.yaml.
-kubectl apply -f examples/application.yaml
