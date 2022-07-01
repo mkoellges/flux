@@ -11,5 +11,5 @@ spec:
     kind: GitRepository
     name: react-app
     namespace: flux-system
-  path: "./deploy/manifests/"
+  path: "./manifests/"
   prune: true
