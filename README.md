@@ -22,7 +22,10 @@ flux bootstrap github \
 ## Deploy using helm controller
 
 In this example I install the starboard kubernetes logging using helm.
+
+```sh
 flux create source helm starboard-operator --url https://aquasecurity.github.io/helm-charts/ --namespace starboard-system
+```
 
 ```sh
 flux create helmrelease starboard-operator --chart starboard-operator \
