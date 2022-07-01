@@ -6,6 +6,6 @@ metadata:
   namespace: flux-system
 spec:
   interval: 1m0s
-  url: https://github.com/mkoellges/example-app.git
+  url: https://github.com/mkoellges/example-app
   ref:
     branch: main
