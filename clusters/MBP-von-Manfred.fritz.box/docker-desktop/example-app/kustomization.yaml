@@ -3,3 +3,4 @@ kind: Kustomization
 resources:
   - gitrepo.yaml
   - deployment.yaml
+  - service.yaml
