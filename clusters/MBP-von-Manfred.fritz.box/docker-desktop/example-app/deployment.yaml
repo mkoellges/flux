@@ -9,7 +9,7 @@ spec:
   targetNamespace: example
   sourceRef:
     kind: GitRepository
-    name: eyample-app
+    name: example-app
     namespace: flux-system
   path: "./deployments/"
   prune: true
