@@ -11,5 +11,5 @@ spec:
     kind: GitRepository
     name: example-app
     namespace: flux-system
-  path: "./deployments/"
+  path: "./deployments/deployment.yaml"
   prune: true
