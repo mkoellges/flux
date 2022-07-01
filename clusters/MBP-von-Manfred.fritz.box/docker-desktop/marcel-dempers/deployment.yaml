@@ -11,5 +11,5 @@ spec:
     kind: GitRepository
     name: marcel-dempers
     namespace: flux-system
-  path: "./kubernetes/deployments/"
+  path: "./kubernetes/deployments/deployment.yaml"
   prune: true
