@@ -5,7 +5,7 @@ metadata:
   name: starboard-system
   namespace: flux-system
 spec:
-  interval: 1m
+  interval: 1m0s
   url: https://aquasecurity.github.io/helm-charts/
 
 ---
@@ -23,4 +23,4 @@ spec:
         kind: HelmRepository
         name: starboard-system
         namespace: flux-system
-  interval: 1m
+  interval: 1m0s
