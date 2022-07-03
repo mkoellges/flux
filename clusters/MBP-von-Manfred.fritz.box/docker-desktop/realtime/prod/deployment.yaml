@@ -1,0 +1,15 @@
+---
+apiVersion: kustomize.toolkit.fluxcd.io/v1beta2
+kind: Kustomization
+metadata:
+  name: realtime
+  namespace: flux-system
+spec:
+  interval: 1m0s
+  targetNamespace: realtime-prod
+  sourceRef:
+    kind: GitRepository
+    name: realtime-prod
+    namespace: flux-system
+  path: "./deploy/overlays/prod/"
+  prune: true
