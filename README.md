@@ -33,6 +33,7 @@ flux create source helm ingress-nginx \
 ```sh
 flux create helmrelease ingress-nginx \
 --source HelmRepository/ingress-nginx \
+--chart ingress-nginx \
 --chart-version 4.1.4 \
 --target-namespace ingress-nginx \
 --create-target-namespace \
@@ -41,12 +42,13 @@ flux create helmrelease ingress-nginx \
 --export > clusters/MBP-von-Manfred/docker-desktop/ingress-nginx/helm-release.yaml
 ```
 
-## Deploy an application
-
-First create a namespace:
+## Monitoring
 
 ```sh
-kubectl create ns app
+flux create source git flux-monitoring \
+  --interval=30m \
+  --url=https://github.com/fluxcd/flux2 \
+  --branch=main \
+  --namespace=flux-system \
+  -- export > clusters/MBP-von-Manfred/docker-desktop/monitoring/git-source.yaml
 ```
-
-Now create the application by defining the gitrepository and the definition for the kustomization controller. These Repositories will be stored in the flux-system namespace. The application will be deployed in the targetNamespace - defined in the kustomization section of teh apllication.yaml.
