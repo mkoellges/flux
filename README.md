@@ -44,6 +44,8 @@ flux create helmrelease ingress-nginx \
 
 ## Monitoring
 
+Add gitrepository
+
 ```sh
 flux create source git flux-monitoring \
   --interval=30m \
@@ -51,4 +53,18 @@ flux create source git flux-monitoring \
   --branch=main \
   --namespace=flux-system \
   --export > clusters/MBP-von-Manfred/docker-desktop/monitoring/git-source.yaml
+```
+
+Create Prometheus stack
+
+```sh
+flux create kustomization kube-prometheus-stack \
+  --interval=1h \
+  --namespace flux-system \
+  --prune \
+  --source=flux-monitoring \
+  --path="./manifests/monitoring/kube-prometheus-stack" \
+  --health-check-timeout=5m \
+  --target-namespace=monitoring \
+  --export > clusters/MBP-von-Manfred/docker-desktop/monitoring/kustonize.yaml
 ```
