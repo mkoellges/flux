@@ -7,13 +7,20 @@ metadata:
 spec:
   chart:
     spec:
-      chart: nginx-ingress
+      chart: ingress-nginx
       reconcileStrategy: ChartVersion
       sourceRef:
         kind: HelmRepository
-        name: nginx-ingress
+        name: ingress-nginx
+      version: 4.1.4
   install:
     createNamespace: true
   interval: 1m0s
   targetNamespace: ingress-nginx
+  values:
+    controller:
+      metrics:
+        service:
+          annotations:
+            ingressClassName: nginx
 

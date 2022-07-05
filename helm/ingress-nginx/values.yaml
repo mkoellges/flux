@@ -1,0 +1,5 @@
+controller:
+  metrics:
+    service:
+      annotations:
+        ingressClassName: nginx
