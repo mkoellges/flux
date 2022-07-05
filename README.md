@@ -15,23 +15,31 @@ flux bootstrap github \
 --owner=$GITHUB_USER \
 --repository=flux \
 --branch=main \
---path=./clusters/MBP-von-Manfred.fritz.box/docker-desktop \
+--path=./clusters/MBP-von-Manfred/docker-desktop \
 --personal
 ```
 
-## Deploy using helm controller
+## Deploy ingress-nginx using helm controller
 
 In this example I install the starboard kubernetes logging using helm.
 
 ```sh
-flux create source helm starboard-operator --url https://aquasecurity.github.io/helm-charts/ --namespace starboard-system
+flux create source helm ingress-nginx \
+--url https://kubernetes.github.io/ingress-nginx \
+--namespace flux-system \
+--export > clusters/MBP-von-Manfred/docker-desktop/ingress-nginx/helm-chart.yaml
 ```
 
 ```sh
-flux create helmrelease starboard-operator --chart starboard-operator \
-  --source HelmRepository/starboard-operator \
-  --chart-version 0.10.3 \
-  --namespace starboard-system
+flux create helmrelease ingress-nginx \
+--source HelmRepository/ingress-nginx \
+--chart ingress-nginx \
+--chart-version 414 \
+--target-namespace ingress-nginx \
+--create-target-namespace \
+--namespace flux-system \
+--values helm/ingress-nginx/values.yaml \
+--export > clusters/MBP-von-Manfred/docker-desktop/ingress-nginx/helm-release.yaml
 ```
 
 ## Deploy an application
