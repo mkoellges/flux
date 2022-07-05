@@ -25,7 +25,7 @@ In this example I install the starboard kubernetes logging using helm.
 
 ```sh
 flux create source helm ingress-nginx \
---url https://kubernetes.github.io/ingress-nginx \
+--url https://helm.nginx.com/stable \
 --namespace flux-system \
 --export > clusters/MBP-von-Manfred/docker-desktop/ingress-nginx/helm-chart.yaml
 ```
