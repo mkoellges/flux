@@ -34,7 +34,7 @@ flux create source helm ingress-nginx \
 flux create helmrelease ingress-nginx \
 --source HelmRepository/ingress-nginx \
 --chart ingress-nginx \
---chart-version 414 \
+--chart-version 4.1.4 \
 --target-namespace ingress-nginx \
 --create-target-namespace \
 --namespace flux-system \
