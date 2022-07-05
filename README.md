@@ -50,5 +50,5 @@ flux create source git flux-monitoring \
   --url=https://github.com/fluxcd/flux2 \
   --branch=main \
   --namespace=flux-system \
-  -- export > clusters/MBP-von-Manfred/docker-desktop/monitoring/git-source.yaml
+  --export > clusters/MBP-von-Manfred/docker-desktop/monitoring/git-source.yaml
 ```
