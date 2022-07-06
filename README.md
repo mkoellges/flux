@@ -94,3 +94,11 @@ flux create kustomization monitoring-config \
   --health-check-timeout=1m \
   --export > clusters/MBP-von-Manfred/docker-desktop/monitoring/grafana-dashboards.yaml
 ```
+
+Test the monitoring
+
+```sh
+kubectl -n monitoring port-forward svc/kube-prometheus-stack-grafana 3000:80
+
+open http://127.0.0.1:3000
+```
