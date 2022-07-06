@@ -105,6 +105,8 @@ open http://127.0.0.1:3000
 
 ## Example App using kustomize
 
+### Stage DEV
+
 Create the github source
 
 ```sh
@@ -114,4 +116,15 @@ flux create source git example-app-dev \
   --branch=dev \
   --namespace=flux-system \
   --export > clusters/MBP-von-Manfred/docker-desktop/example-app-dev/git-source.yaml
+```
+
+```sh
+flux create kustomization example-app-dev \
+ --interval=1h \
+ --prune=true \
+ --source=example-app-dev \
+ --path="./overlay/dev" \
+ --target-namespace=example-app-dev \
+ --health-check-timeout=1m \
+ --export > clusters/MBP-von-Manfred/docker-desktop/example-app-dev/kustomize.yaml
 ```

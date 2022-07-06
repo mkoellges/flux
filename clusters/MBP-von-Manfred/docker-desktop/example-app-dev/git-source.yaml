@@ -5,8 +5,7 @@ metadata:
   name: example-app-dev
   namespace: flux-system
 spec:
-  interval: 30m0s
+  interval: 1m0s
   ref:
     branch: dev
   url: https://github.com/mkoellges/example-app.git
-
