@@ -102,3 +102,16 @@ kubectl -n monitoring port-forward svc/kube-prometheus-stack-grafana 3000:80
 
 open http://127.0.0.1:3000
 ```
+
+## Example App using kustomize
+
+Create the github source
+
+```sh
+flux create source git example-app-dev \
+  --interval=30m \
+  --url=https://github.com/mkoellges/example-app.git\
+  --branch=dev \
+  --namespace=flux-system \
+  --export > clusters/MBP-von-Manfred/docker-desktop/example-app-dev/git-source.yaml
+```
