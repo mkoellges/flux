@@ -69,6 +69,19 @@ flux create kustomization kube-prometheus-stack \
   --export > clusters/MBP-von-Manfred/docker-desktop/monitoring/kustonize.yaml
 ```
 
+Install loki stack
+
+```sh
+flux create kustomization loki-stack \
+  --depends-on=kube-prometheus-stack \
+  --interval=1h \
+  --prune \
+  --source=flux-monitoring \
+  --path="./manifests/monitoring/loki-stack" \
+  --health-check-timeout=5m \
+  --export > clusters/MBP-von-Manfred/docker-desktop/monitoring/loki.yaml
+```
+
 Install Grafana Dashboards
 
 ```sh
