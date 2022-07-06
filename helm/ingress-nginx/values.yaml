@@ -3,3 +3,4 @@ controller:
     service:
       annotations:
         ingressClassName: nginx
+        ingressclass.kubernetes.io/is-default-class: "true"
