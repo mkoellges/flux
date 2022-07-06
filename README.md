@@ -68,3 +68,16 @@ flux create kustomization kube-prometheus-stack \
   --target-namespace=monitoring \
   --export > clusters/MBP-von-Manfred/docker-desktop/monitoring/kustonize.yaml
 ```
+
+Install Grafana Dashboards
+
+```sh
+flux create kustomization monitoring-config \
+  --depends-on=kube-prometheus-stack \
+  --interval=1h \
+  --prune=true \
+  --source=flux-monitoring \
+  --path="./manifests/monitoring/monitoring-config" \
+  --health-check-timeout=1m \
+  --export > clusters/MBP-von-Manfred/docker-desktop/monitoring/grafana-dashboards.yaml
+```
