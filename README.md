@@ -120,11 +120,53 @@ flux create source git example-app-dev \
 
 ```sh
 flux create kustomization example-app-dev \
- --interval=1h \
- --prune=true \
+ --interval=1m0s \
  --source=example-app-dev \
  --path="./overlay/dev" \
  --target-namespace=example-app-dev \
- --health-check-timeout=1m \
  --export > clusters/MBP-von-Manfred/docker-desktop/example-app-dev/kustomize.yaml
+```
+
+### Stage STAGING
+
+Create the github source
+
+```sh
+flux create source git example-app-staging \
+  --interval=30m \
+  --url=https://github.com/mkoellges/example-app.git\
+  --branch=staging \
+  --namespace=flux-system \
+  --export > clusters/MBP-von-Manfred/docker-desktop/example-app-staging/git-source.yaml
+```
+
+```sh
+flux create kustomization example-app-staging \
+ --interval=1m0s \
+ --source=example-app-staging \
+ --path="./overlay/staging" \
+ --target-namespace=example-app-staging \
+ --export > clusters/MBP-von-Manfred/docker-desktop/example-app-dev/kustomize.yaml
+```
+
+### Stage DEV
+
+Create the github source
+
+```sh
+flux create source git example-app-production \
+  --interval=30m \
+  --url=https://github.com/mkoellges/example-app.git\
+  --branch=production \
+  --namespace=flux-system \
+  --export > clusters/MBP-von-Manfred/docker-desktop/example-app-production/git-source.yaml
+```
+
+```sh
+flux create kustomization example-app-production \
+ --interval=1m0s \
+ --source=example-app-production \
+ --path="./overlay/production" \
+ --target-namespace=example-app-production \
+ --export > clusters/MBP-von-Manfred/docker-desktop/example-app-production/kustomize.yaml
 ```
