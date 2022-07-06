@@ -1,4 +1,4 @@
-# Flux - multi tenant
+# GitOps with FLUX
 
 ## First install
 
