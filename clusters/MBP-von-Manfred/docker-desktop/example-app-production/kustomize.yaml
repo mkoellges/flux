@@ -7,9 +7,8 @@ metadata:
 spec:
   interval: 1m0s
   path: ./overlay/production
-  prune: false
+  prune: true
   sourceRef:
     kind: GitRepository
     name: example-app-production
   targetNamespace: example-app-production
-
