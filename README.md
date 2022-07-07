@@ -99,9 +99,20 @@ flux create kustomization monitoring-config \
   --export > clusters/MBP-von-Manfred/docker-desktop/monitoring/grafana-dashboards.yaml
 ```
 
+Now add a namespace manifest ˋclusters/MBP-von-Manfred/docker-desktop/monitoring/namespace.yamlˋ
+
+```yaml
+---
+apiVersion: v1
+kind: Namespace
+metadata:
+  name: monitoring
+```
+
 Create an ingress manifest ˋclusters/MBP-von-Manfred/docker-desktop/monitoring/ingress.yamlˋ for the grafana service:
 
 ```yaml
+---
 apiVersion: networking.k8s.io/v1
 kind: Ingress
 metadata:
@@ -111,33 +122,34 @@ metadata:
 spec:
   ingressClassName: nginx
   rules:
-  - http:
-      paths:
-      - hostname: monitoting.example.com
-        path: /
-        pathType: Prefix
-        backend:
-          service:
-            name: grafana
-            port:
-              number: 80
+    - http:
+        paths:
+          - hostname: monitoting.example.com
+            path: /
+            pathType: Prefix
+            backend:
+              service:
+                name: kube-prometheus-stack-grafana
+                port:
+                  number: 80
 ```
 
 Last create the kustomization manifest ˋclusters/MBP-von-Manfred/docker-desktop/monitoring/kustomization.yamlˋ :
 
 ```yaml
+---
 apiVersion: kustomize.config.k8s.io/v1beta1
 kind: Kustomization
 metadata:
   name: monitoring
 
 resources:
-- namespace.yaml
-- git-source.yaml
-- monitoring-kustomization.yaml
-- loki.yaml
-- grafana-dashboards.yaml
-- ingress.yaml
+  - namespace.yaml
+  - git-source.yaml
+  - monitoring-kustomization.yaml
+  - loki.yaml
+  - grafana-dashboards.yaml
+  - ingress.yaml
 ```
 
 Test the monitoring
