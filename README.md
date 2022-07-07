@@ -70,7 +70,7 @@ flux create kustomization kube-prometheus-stack \
   --path="./manifests/monitoring/kube-prometheus-stack" \
   --health-check-timeout=5m \
   --target-namespace=monitoring \
-  --export > clusters/MBP-von-Manfred/docker-desktop/monitoring/kustonize.yaml
+  --export > clusters/MBP-von-Manfred/docker-desktop/monitoring/monitoring-kustomization.yaml
 ```
 
 Install loki stack
@@ -125,6 +125,25 @@ spec:
 
 Last create the kustomization manifest ˋclusters/MBP-von-Manfred/docker-desktop/monitoring/kustomization.yamlˋ :
 
+```yaml
+apiVersion: kustomize.config.k8s.io/v1beta1
+kind: Kustomization
+metadata:
+  name: arbitrary
+
+# Example configuration for the webserver
+# at https://github.com/monopole/hello
+commonLabels:
+  app: hello
+
+resources:
+- namespace.yaml
+- git-source.yaml
+- monitoring-kustomization.yaml
+- loki.yaml
+- grafana-dashboards.yaml
+- ingress.yaml
+```
 
 Test the monitoring
 
