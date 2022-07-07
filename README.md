@@ -105,7 +105,7 @@ Create an ingress manifest ˋclusters/MBP-von-Manfred/docker-desktop/monitoring/
 apiVersion: networking.k8s.io/v1
 kind: Ingress
 metadata:
-  name: minimal-ingress
+  name: monitoring
   annotations:
     kubernetes.io/ingress.class: "nginx"
 spec:
