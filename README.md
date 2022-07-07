@@ -99,6 +99,33 @@ flux create kustomization monitoring-config \
   --export > clusters/MBP-von-Manfred/docker-desktop/monitoring/grafana-dashboards.yaml
 ```
 
+Create an ingress manifest ˋclusters/MBP-von-Manfred/docker-desktop/monitoring/ingress.yamlˋ for the grafana service:
+
+```yaml
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: minimal-ingress
+  annotations:
+    nginx.ingress.kubernetes.io/rewrite-target: /
+spec:
+  ingressClassName: nginx
+  rules:
+  - http:
+      paths:
+      - hostname: monitoting.example.com
+        path: /
+        pathType: Prefix
+        backend:
+          service:
+            name: grafana
+            port:
+              number: 80
+```
+
+Last create the kustomization manifest ˋclusters/MBP-von-Manfred/docker-desktop/monitoring/kustomization.yamlˋ :
+
+
 Test the monitoring
 
 ```sh
