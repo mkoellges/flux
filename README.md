@@ -129,12 +129,7 @@ Last create the kustomization manifest ˋclusters/MBP-von-Manfred/docker-desktop
 apiVersion: kustomize.config.k8s.io/v1beta1
 kind: Kustomization
 metadata:
-  name: arbitrary
-
-# Example configuration for the webserver
-# at https://github.com/monopole/hello
-commonLabels:
-  app: hello
+  name: monitoring
 
 resources:
 - namespace.yaml
@@ -148,6 +143,10 @@ resources:
 Test the monitoring
 
 ```sh
+# use ingress
+open http://monitoting.example.com
+
+# without ingress
 kubectl -n monitoring port-forward svc/kube-prometheus-stack-grafana 3000:80
 
 open http://127.0.0.1:3000
