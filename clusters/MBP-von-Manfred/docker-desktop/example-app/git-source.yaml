@@ -7,5 +7,5 @@ metadata:
 spec:
   interval: 1m0s
   ref:
-    branch: dev
+    branch: main
   url: https://github.com/mkoellges/example-app.git
