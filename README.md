@@ -107,7 +107,7 @@ kind: Ingress
 metadata:
   name: minimal-ingress
   annotations:
-    nginx.ingress.kubernetes.io/rewrite-target: /
+    kubernetes.io/ingress.class: "nginx"
 spec:
   ingressClassName: nginx
   rules:
