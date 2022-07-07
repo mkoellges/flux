@@ -117,15 +117,15 @@ apiVersion: networking.k8s.io/v1
 kind: Ingress
 metadata:
   name: monitoring
+  namespace: monitoring
   annotations:
     kubernetes.io/ingress.class: "nginx"
 spec:
-  ingressClassName: nginx
   rules:
-    - http:
+    - host: monitoting.example.com
+      http:
         paths:
-          - hostname: monitoting.example.com
-            path: /
+          - path: /
             pathType: Prefix
             backend:
               service:
