@@ -149,7 +149,7 @@ flux create kustomization example-app-staging \
  --export > clusters/MBP-von-Manfred/docker-desktop/example-app-dev/kustomize.yaml
 ```
 
-### Stage DEV
+### Stage PRODUCTION
 
 Create the github source
 
