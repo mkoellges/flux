@@ -2,8 +2,12 @@
 
 ## First install
 
-First of all, you can check that your Flux CLI is able to communicate with your Kubernetes cluster.
+First of all, you can check that your Flux CLI is able to communicate with your Kubernetes cluster
+
+```sh
 flux check --pre
+```
+
 Now you will perform the initial configuration of Flux.To do so, you must generate a Github token so that Flux is able to interact with your repository.
 As you can see, we indicate two teams (dev1 and dev2) that will be allowed to access the Github repository.These teams must already exist in your Github organization.
 
