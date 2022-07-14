@@ -23,6 +23,3 @@ spec:
         service:
           annotations:
             ingressClassName: nginx
-        ingressClassResource:
-          enabled: true
-          default: false
