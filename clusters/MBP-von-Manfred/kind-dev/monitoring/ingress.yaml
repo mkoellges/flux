@@ -11,7 +11,7 @@ spec:
     - host: localhost
       http:
         paths:
-          - path: /monitoring
+          - path: /monitoring/
             pathType: Prefix
             backend:
               service:
