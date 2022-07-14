@@ -11,7 +11,7 @@ spec:
     - http:
         paths:
           - path: /monitoring
-            pathType: Prefix
+            pathType: Suffix
             backend:
               service:
                 name: kube-prometheus-stack-grafana
