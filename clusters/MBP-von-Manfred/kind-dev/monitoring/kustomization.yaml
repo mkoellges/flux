@@ -10,4 +10,4 @@ resources:
   - monitoring-kustomization.yaml
   - loki.yaml
   - grafana-dashboards.yaml
-#  - ingress.yaml
+ - ingress.yaml
