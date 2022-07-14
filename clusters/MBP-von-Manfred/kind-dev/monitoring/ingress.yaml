@@ -8,10 +8,11 @@ metadata:
     kubernetes.io/ingress.class: "nginx"
 spec:
   rules:
-    - http:
+    - host: localhost
+      http:
         paths:
           - path: /monitoring
-            pathType: Suffix
+            pathType: Prefix
             backend:
               service:
                 name: kube-prometheus-stack-grafana
