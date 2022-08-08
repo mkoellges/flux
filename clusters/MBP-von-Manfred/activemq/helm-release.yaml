@@ -3,11 +3,11 @@ apiVersion: helm.toolkit.fluxcd.io/v2beta1
 kind: HelmRelease
 metadata:
   name: activemq
-  namespace: activemy-system
+  namespace: activemq-system
 spec:
   chart:
     spec:
-      chart: activemq
+      chart: artemis
       reconcileStrategy: ChartVersion
       sourceRef:
         kind: HelmRepository
@@ -17,112 +17,64 @@ spec:
   interval: 1m0s
   targetNamespace: activemq-system
   values:
-    antiAffinity: hard
-    antiAffinityTopologyKey: kubernetes.io/hostname
-    configMap: {}
-    envFrom: []
-    extraContainers: ""
-    extraEnvs: []
-    extraInitContainers: ""
-    extraPorts: []
-    extraVolumeMounts: ""
-    extraVolumes: ""
-    fullnameOverride: ""
-    image: webcenter/activemq-kube
-    imagePullPolicy: IfNotPresent
-    imagePullSecrets: []
-    imageTag: 5.17.1
-    ingress:
+    addressSettings:
+    - match: '#'
+      settings:
+        deadLetterAddress: DLQ
+        expiryAddress: ExpiryQueue
+        messageCounterHistoryDayLimit: 10
+    addresses:
+    - name: DLQ
+    - name: ExpiryQueue
+    affinity: {}
+    auth:
+      clientUser: artemis
+      clusterUser: artemis-internal
+    clustering:
+      addresses: []
+      useDuplicateDetection: true
+    core:
+      criticalAnalyzerPolicy: SHUTDOWN
+    ha:
+      backup: {}
       enabled: false
-    labels: {}
-    lifecycle: {}
-    livenessProbe:
-      failureThreshold: 3
-      initialDelaySeconds: 300
-      periodSeconds: 10
-      successThreshold: 1
-      tcpSocket:
-        port: console
-      timeoutSeconds: 5
-    maxUnavailable: 1
-    nameOverride: ""
-    nodeAffinity: {}
+      live: {}
+    image:
+      pullPolicy: IfNotPresent
+      pullSecrets: []
+    initContainerImage:
+      pullPolicy: IfNotPresent
+      repository: bash
+      tag: 5
+    javaOpts: ""
+    jgroups:
+      k8s: {}
+      tcp: {}
+    metrics:
+      enabled: true
+      serviceMonitor:
+        enabled: false
+        interval: 10s
+        namespace: monitoring
+        path: /metrics
     nodeSelector: {}
     persistence:
-      annotations: {}
+      accessModes:
+      - ReadWriteOnce
       enabled: false
-    podAnnotations: {}
-    podManagementPolicy: Parallel
-    podSecurityContext:
-      fsGroup: 1000
-      runAsUser: 1000
-    podSecurityPolicy:
-      create: false
-      name: ""
-      spec:
-        fsGroup:
-          rule: RunAsAny
-        privileged: true
-        runAsUser:
-          rule: RunAsAny
-        seLinux:
-          rule: RunAsAny
-        supplementalGroups:
-          rule: RunAsAny
-        volumes:
-          - secret
-          - configMap
-          - persistentVolumeClaim
-    priorityClassName: ""
-    rbac:
-      create: false
-      serviceAccountAnnotations: {}
-      serviceAccountName: ""
+      storageSize: 8Gi
     readinessProbe:
-      failureThreshold: 3
-      initialDelaySeconds: 60
+      initialDelaySeconds: 5
       periodSeconds: 10
-      successThreshold: 3
       tcpSocket:
-        port: console
-      timeoutSeconds: 5
-    replicas: 1
+        port: netty
+    replicaCount: 1
     resources:
       limits:
-        cpu: 1000m
-        memory: 1Gi
+        memory: 256Mi
       requests:
         cpu: 100m
-        memory: 512Mi
-    schedulerName: ""
-    secretMounts: []
-    secrets: []
-    securityContext:
-      capabilities:
-        drop:
-          - ALL
-      runAsNonRoot: true
-      runAsUser: 1000
-    service:
-      annotations: {}
-      ports:
-        - name: openwire
-          port: 61616
-        - name: stomp
-          port: 61613
-        - name: amqp
-          port: 5672
-        - name: mqtt
-          port: 1883
-        - name: ws
-          port: 61614
-      type: ClusterIP
-    terminationGracePeriod: 120
+        memory: 256Mi
     tolerations: []
-    updateStrategy: RollingUpdate
-    volumeClaimTemplate:
-      accessModes:
-        - ReadWriteOnce
-      resources:
-        requests:
-          storage: 10Gi
+    users: {}
+
