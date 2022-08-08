@@ -13,7 +13,7 @@ flux create source helm activemq \
 
 ```sh
 flux create helmrelease activemq \
---srouce HelmRepository/activemq \
+--source HelmRepository/activemq \
 --chart activemq \
 --target-namespace activemq-system \
 --create-target-namespace \

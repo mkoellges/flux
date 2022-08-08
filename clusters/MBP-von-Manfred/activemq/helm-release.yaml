@@ -1,0 +1,128 @@
+---
+apiVersion: helm.toolkit.fluxcd.io/v2beta1
+kind: HelmRelease
+metadata:
+  name: activemq
+  namespace: activemy-system
+spec:
+  chart:
+    spec:
+      chart: activemq
+      reconcileStrategy: ChartVersion
+      sourceRef:
+        kind: HelmRepository
+        name: activemq
+  install:
+    createNamespace: true
+  interval: 1m0s
+  targetNamespace: activemq-system
+  values:
+    antiAffinity: hard
+    antiAffinityTopologyKey: kubernetes.io/hostname
+    configMap: {}
+    envFrom: []
+    extraContainers: ""
+    extraEnvs: []
+    extraInitContainers: ""
+    extraPorts: []
+    extraVolumeMounts: ""
+    extraVolumes: ""
+    fullnameOverride: ""
+    image: webcenter/activemq-kube
+    imagePullPolicy: IfNotPresent
+    imagePullSecrets: []
+    imageTag: 5.17.1
+    ingress:
+      enabled: false
+    labels: {}
+    lifecycle: {}
+    livenessProbe:
+      failureThreshold: 3
+      initialDelaySeconds: 300
+      periodSeconds: 10
+      successThreshold: 1
+      tcpSocket:
+        port: console
+      timeoutSeconds: 5
+    maxUnavailable: 1
+    nameOverride: ""
+    nodeAffinity: {}
+    nodeSelector: {}
+    persistence:
+      annotations: {}
+      enabled: false
+    podAnnotations: {}
+    podManagementPolicy: Parallel
+    podSecurityContext:
+      fsGroup: 1000
+      runAsUser: 1000
+    podSecurityPolicy:
+      create: false
+      name: ""
+      spec:
+        fsGroup:
+          rule: RunAsAny
+        privileged: true
+        runAsUser:
+          rule: RunAsAny
+        seLinux:
+          rule: RunAsAny
+        supplementalGroups:
+          rule: RunAsAny
+        volumes:
+          - secret
+          - configMap
+          - persistentVolumeClaim
+    priorityClassName: ""
+    rbac:
+      create: false
+      serviceAccountAnnotations: {}
+      serviceAccountName: ""
+    readinessProbe:
+      failureThreshold: 3
+      initialDelaySeconds: 60
+      periodSeconds: 10
+      successThreshold: 3
+      tcpSocket:
+        port: console
+      timeoutSeconds: 5
+    replicas: 1
+    resources:
+      limits:
+        cpu: 1000m
+        memory: 1Gi
+      requests:
+        cpu: 100m
+        memory: 512Mi
+    schedulerName: ""
+    secretMounts: []
+    secrets: []
+    securityContext:
+      capabilities:
+        drop:
+          - ALL
+      runAsNonRoot: true
+      runAsUser: 1000
+    service:
+      annotations: {}
+      ports:
+        - name: openwire
+          port: 61616
+        - name: stomp
+          port: 61613
+        - name: amqp
+          port: 5672
+        - name: mqtt
+          port: 1883
+        - name: ws
+          port: 61614
+      type: ClusterIP
+    terminationGracePeriod: 120
+    tolerations: []
+    updateStrategy: RollingUpdate
+    volumeClaimTemplate:
+      accessModes:
+        - ReadWriteOnce
+      resources:
+        requests:
+          storage: 10Gi
