@@ -4,10 +4,10 @@
 
 ```sh
 flux create source helm activemq \
---url https://github.com/disaster37/activemq-kube/tree/master/deploy/helm/ \
+--url https://github.com/disaster37/activemq-helm \
 --namespace activemq-system \
 --interval=1m0s \
---export > clusters/MBP-von-Manfred/activemq/helm-repo.yaml
+--export > clusters/MBP-von-Manfred/docker-desktop/activemq/helm-repo.yaml
 ```
 
 ## create helmrelease
