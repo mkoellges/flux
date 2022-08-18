@@ -6,4 +6,4 @@ metadata:
   namespace: activemq-system
 spec:
   interval: 1m0s
-  url: https://github.com/vromero/activemq-artemis-helm
+  url: https://vromero.github.io/activemq-artemis-helm/

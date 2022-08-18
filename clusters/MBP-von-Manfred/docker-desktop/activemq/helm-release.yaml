@@ -7,7 +7,7 @@ metadata:
 spec:
   chart:
     spec:
-      chart: activemq-artemis
+      chart: activemq-artemis/activemq-artemis
       reconcileStrategy: ChartVersion
       sourceRef:
         kind: HelmRepository
