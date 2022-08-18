@@ -2,8 +2,8 @@
 apiVersion: source.toolkit.fluxcd.io/v1beta2
 kind: HelmRepository
 metadata:
-  name: activemq-artemis
+  name: activemq
   namespace: activemq-system
 spec:
   interval: 1m0s
-  url: https://vromero.github.io/activemq-artemis-helm/
+  url: https://github.com/disaster37/activemq-kube/tree/master/deploy/helm/

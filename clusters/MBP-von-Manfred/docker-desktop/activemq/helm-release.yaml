@@ -2,78 +2,18 @@
 apiVersion: helm.toolkit.fluxcd.io/v2beta1
 kind: HelmRelease
 metadata:
-  name: activemq-artemis
+  name: activem
   namespace: activemq-system
 spec:
   chart:
     spec:
-      chart: activemq-artemis/activemq-artemis
+      chart: activemq
       reconcileStrategy: ChartVersion
       sourceRef:
         kind: HelmRepository
-        name: activemq-artemis
+        name: activemq
   install:
     createNamespace: true
   interval: 1m0s
   targetNamespace: activemq-system
-  values:
-    addressSettings:
-      - match: "#"
-        settings:
-          deadLetterAddress: DLQ
-          expiryAddress: ExpiryQueue
-          messageCounterHistoryDayLimit: 10
-    addresses:
-      - name: DLQ
-      - name: ExpiryQueue
-    affinity: {}
-    auth:
-      clientUser: artemis
-      clusterUser: artemis-internal
-    clustering:
-      addresses: []
-      useDuplicateDetection: true
-    core:
-      criticalAnalyzerPolicy: SHUTDOWN
-    ha:
-      backup: {}
-      enabled: false
-      live: {}
-    image:
-      pullPolicy: IfNotPresent
-      pullSecrets: []
-    initContainerImage:
-      pullPolicy: IfNotPresent
-      repository: bash
-      tag: 5
-    javaOpts: ""
-    jgroups:
-      k8s: {}
-      tcp: {}
-    metrics:
-      enabled: true
-      serviceMonitor:
-        enabled: false
-        interval: 10s
-        namespace: monitoring
-        path: /metrics
-    nodeSelector: {}
-    persistence:
-      accessModes:
-        - ReadWriteOnce
-      enabled: false
-      storageSize: 8Gi
-    readinessProbe:
-      initialDelaySeconds: 5
-      periodSeconds: 10
-      tcpSocket:
-        port: netty
-    replicaCount: 1
-    resources:
-      limits:
-        memory: 256Mi
-      requests:
-        cpu: 100m
-        memory: 256Mi
-    tolerations: []
-    users: {}
+
