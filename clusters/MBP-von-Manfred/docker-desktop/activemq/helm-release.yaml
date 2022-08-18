@@ -7,7 +7,7 @@ metadata:
 spec:
   chart:
     spec:
-      chart: artemis
+      chart: activemq-artemis
       reconcileStrategy: ChartVersion
       sourceRef:
         kind: HelmRepository
@@ -18,14 +18,14 @@ spec:
   targetNamespace: activemq-system
   values:
     addressSettings:
-    - match: '#'
-      settings:
-        deadLetterAddress: DLQ
-        expiryAddress: ExpiryQueue
-        messageCounterHistoryDayLimit: 10
+      - match: "#"
+        settings:
+          deadLetterAddress: DLQ
+          expiryAddress: ExpiryQueue
+          messageCounterHistoryDayLimit: 10
     addresses:
-    - name: DLQ
-    - name: ExpiryQueue
+      - name: DLQ
+      - name: ExpiryQueue
     affinity: {}
     auth:
       clientUser: artemis
@@ -60,7 +60,7 @@ spec:
     nodeSelector: {}
     persistence:
       accessModes:
-      - ReadWriteOnce
+        - ReadWriteOnce
       enabled: false
       storageSize: 8Gi
     readinessProbe:
@@ -77,4 +77,3 @@ spec:
         memory: 256Mi
     tolerations: []
     users: {}
-

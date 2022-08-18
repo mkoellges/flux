@@ -6,5 +6,4 @@ metadata:
   namespace: activemq-system
 spec:
   interval: 1m0s
-  url: https://deviceinsight.github.io/activemq-artemis-helm
-
+  url: https://github.com/vromero/activemq-artemis-helm/stable
