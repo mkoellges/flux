@@ -5,12 +5,9 @@ metadata:
   name: cluster-issuer
   namespace: flux-system
 spec:
-  dependsOn:
-  - name: cert-manager
   interval: 1m0s
   path: ./k8s/cluster-issuer
   prune: true
   sourceRef:
     kind: GitRepository
     name: cluster-issuer
-
