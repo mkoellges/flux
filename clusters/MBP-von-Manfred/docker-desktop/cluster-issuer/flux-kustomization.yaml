@@ -13,3 +13,4 @@ spec:
   sourceRef:
     kind: GitRepository
     name: cluster-issuer
+    namespace: flux-system
