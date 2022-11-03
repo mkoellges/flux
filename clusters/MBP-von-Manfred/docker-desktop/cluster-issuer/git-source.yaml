@@ -2,7 +2,7 @@
 apiVersion: source.toolkit.fluxcd.io/v1beta2flux
 kind: GitRepository
 metadata:
-  name: flux-source
+  name: cluster-issuer
   namespace: flux-system
 spec:
   interval: 1m0s
