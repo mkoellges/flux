@@ -9,4 +9,3 @@ spec:
   ref:
     branch: main
   url: https://github.com/mkoellges/cert-manager.git
-
