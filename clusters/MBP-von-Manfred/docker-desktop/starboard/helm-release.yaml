@@ -11,10 +11,9 @@ spec:
       reconcileStrategy: ChartVersion
       sourceRef:
         kind: HelmRepository
-        name: starboard-operator
+        name: aqua
       version: 0.6.0
   install:
     createNamespace: true
   interval: 1m0s
   targetNamespace: starboard
-
