@@ -6,9 +6,14 @@ metadata:
   namespace: monitoring
   annotations:
     kubernetes.io/ingress.class: "nginx"
+    cert-manager.io/issuer: "letsencrypt-staging"
 spec:
+  tls:
+    - hosts:
+        - monitoring.mkoellges.guru
+      secretName: monitoring-tls
   rules:
-    - host: monitoting.example.com
+    - host: monitoting.mkoellges.guru
       http:
         paths:
           - path: /
