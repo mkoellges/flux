@@ -12,7 +12,6 @@ spec:
       sourceRef:
         kind: HelmRepository
         name: aqua
-      version: v0.15.11
   install:
     createNamespace: true
   interval: 1m0s
