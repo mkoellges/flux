@@ -13,7 +13,7 @@ spec:
         - monitoring.mkoellges.guru
       secretName: monitoring-tls
   rules:
-    - host: monitoting.mkoellges.guru
+    - host: monitoring.mkoellges.guru
       http:
         paths:
           - path: /
