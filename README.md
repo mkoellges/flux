@@ -12,8 +12,7 @@ Now you will perform the initial configuration of Flux.To do so, you must gener
 As you can see, we indicate two teams (dev1 and dev2) that will be allowed to access the Github repository.These teams must already exist in your Github organization.
 
 ```sh
-export GITHUB_TOKEN=XXXXXXXXXXXXXXXXXXXXXXXXXXX
-export GITHUB_USER="USERNAME"
+export GITHUB_TOKEN=$(pass github.com/fluxcd/GITHUB_TOKEN)
 
 flux bootstrap github \
 --owner=$GITHUB_USER \
