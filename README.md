@@ -13,6 +13,7 @@ As you can see, we indicate two teams (dev1 and dev2) that will be allowed to 
 
 ```sh
 export GITHUB_TOKEN=$(pass github.com/fluxcd/GITHUB_TOKEN)
+export GITHUB_USER=$(pass github.com/GITHUB_USER)
 
 flux bootstrap github \
 --owner=$GITHUB_USER \
