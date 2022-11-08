@@ -3,7 +3,7 @@ apiVersion: kustomize.toolkit.fluxcd.io/v1beta2
 kind: Kustomization
 metadata:
   name: example-app-dev
-  namespace: flux-system
+  namespace: example-app-dev
 spec:
   interval: 1m0s
   path: ./overlay/dev
