@@ -1,0 +1,111 @@
+---
+apiVersion: v1
+kind: Namespace
+metadata:
+  labels:
+    toolkit.fluxcd.io/tenant: example-app
+  name: example-app-dev
+
+---
+apiVersion: v1
+kind: ServiceAccount
+metadata:
+  labels:
+    toolkit.fluxcd.io/tenant: example-app
+  name: example-app
+  namespace: example-app-dev
+
+---
+apiVersion: rbac.authorization.k8s.io/v1
+kind: RoleBinding
+metadata:
+  labels:
+    toolkit.fluxcd.io/tenant: example-app
+  name: example-app-reconciler
+  namespace: example-app-dev
+roleRef:
+  apiGroup: rbac.authorization.k8s.io
+  kind: ClusterRole
+  name: example-app-full-access
+subjects:
+- apiGroup: rbac.authorization.k8s.io
+  kind: User
+  name: gotk:example-app-dev:reconciler
+- kind: ServiceAccount
+  name: example-app
+  namespace: example-app-dev
+
+---
+apiVersion: v1
+kind: Namespace
+metadata:
+  labels:
+    toolkit.fluxcd.io/tenant: example-app
+  name: example-app-staging
+
+---
+apiVersion: v1
+kind: ServiceAccount
+metadata:
+  labels:
+    toolkit.fluxcd.io/tenant: example-app
+  name: example-app
+  namespace: example-app-staging
+
+---
+apiVersion: rbac.authorization.k8s.io/v1
+kind: RoleBinding
+metadata:
+  labels:
+    toolkit.fluxcd.io/tenant: example-app
+  name: example-app-reconciler
+  namespace: example-app-staging
+roleRef:
+  apiGroup: rbac.authorization.k8s.io
+  kind: ClusterRole
+  name: example-app-full-access
+subjects:
+- apiGroup: rbac.authorization.k8s.io
+  kind: User
+  name: gotk:example-app-staging:reconciler
+- kind: ServiceAccount
+  name: example-app
+  namespace: example-app-staging
+
+---
+apiVersion: v1
+kind: Namespace
+metadata:
+  labels:
+    toolkit.fluxcd.io/tenant: example-app
+  name: example-app-production
+
+---
+apiVersion: v1
+kind: ServiceAccount
+metadata:
+  labels:
+    toolkit.fluxcd.io/tenant: example-app
+  name: example-app
+  namespace: example-app-production
+
+---
+apiVersion: rbac.authorization.k8s.io/v1
+kind: RoleBinding
+metadata:
+  labels:
+    toolkit.fluxcd.io/tenant: example-app
+  name: example-app-reconciler
+  namespace: example-app-production
+roleRef:
+  apiGroup: rbac.authorization.k8s.io
+  kind: ClusterRole
+  name: example-app-full-access
+subjects:
+- apiGroup: rbac.authorization.k8s.io
+  kind: User
+  name: gotk:example-app-production:reconciler
+- kind: ServiceAccount
+  name: example-app
+  namespace: example-app-production
+

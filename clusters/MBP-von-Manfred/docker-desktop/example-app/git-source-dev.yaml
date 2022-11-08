@@ -2,10 +2,10 @@
 apiVersion: source.toolkit.fluxcd.io/v1beta2
 kind: GitRepository
 metadata:
-  name: weave-gitops
-  namespace: weave-gitops
+  name: example-app
+  namespace: example-app-dev
 spec:
   interval: 1m0s
   ref:
     branch: main
-  url: https://github.com/mkoellges/weave-gitops.git
+  url: https://github.com/mkoellges/example-app.git
