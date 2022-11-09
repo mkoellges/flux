@@ -1,11 +1,10 @@
 ---
 apiVersion: source.toolkit.fluxcd.io/v1beta2
-kind: GitRepository
+kind: HelmRepository
 metadata:
   name: cert-manager
   namespace: cert-manager
 spec:
   interval: 1m0s
-  ref:
-    branch: main
-  url: https://github.com/mkoellges/cert-manager.git
+  url: https://charts.jetstack.io
+
