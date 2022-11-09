@@ -14,6 +14,7 @@ flux create source helm cert-manager \
 
 ```sh
 flux create helmrelease cert-manager \
+--namespace cert-manager \
 --source HelmRepository/cert-manager \
 --chart cert-manager \
 --target-namespace cert-manager \
