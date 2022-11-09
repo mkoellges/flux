@@ -5,9 +5,6 @@ metadata:
   name: weave-gitops
   namespace: weave-gitops
 spec:
-  dependsOn:
-    - name: cert-manager
-      namespace: cert-manager
   interval: 1m0s
   path: ./k8s/base
   prune: true
