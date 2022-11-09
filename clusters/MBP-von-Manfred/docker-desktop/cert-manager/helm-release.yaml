@@ -12,10 +12,11 @@ spec:
       sourceRef:
         kind: HelmRepository
         name: cert-manager
+      version: v1.9.1
   install:
-    crds: Create
     createNamespace: true
   interval: 1m0s
   targetNamespace: cert-manager
-  upgrade:
-    crds: Create
+  values:
+    installCRDs: true
+

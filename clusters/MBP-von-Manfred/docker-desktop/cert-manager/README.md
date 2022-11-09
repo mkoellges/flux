@@ -17,8 +17,9 @@ flux create helmrelease cert-manager \
 --namespace cert-manager \
 --source HelmRepository/cert-manager \
 --chart cert-manager \
+--chart-version v1.9.1 \
 --target-namespace cert-manager \
---crds Create \
 --create-target-namespace \
+--values ./helm/cert-manager/values.yaml \
 --export > clusters/MBP-von-Manfred/docker-desktop/cert-manager/helm-release.yaml
 ```
