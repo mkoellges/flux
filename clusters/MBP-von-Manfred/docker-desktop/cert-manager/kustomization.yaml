@@ -4,4 +4,4 @@ resources:
   - flux-tenant.yaml
   - helm-release.yaml
   - helm-repo.yaml
-  - cluster-issuer.yaml
+  # - cluster-issuer.yaml
