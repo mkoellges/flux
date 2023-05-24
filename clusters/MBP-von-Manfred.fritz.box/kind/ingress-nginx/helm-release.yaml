@@ -31,4 +31,4 @@ spec:
           annotations:
             ingressClassName: nginx
       nodeSelector:
-        kubernetes.io/hostname: monitoring-worker
+        ingress-ready: true
