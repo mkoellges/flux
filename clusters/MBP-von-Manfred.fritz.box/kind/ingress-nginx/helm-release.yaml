@@ -25,10 +25,6 @@ spec:
         service:
           annotations:
             ingressClassName: nginx
-      updateStrategy: 
-        rollingUpdate:
-          maxUnavailable: 1
-        type: RollingUpdate
       resources:
         autoscaling:
           enabled: true
