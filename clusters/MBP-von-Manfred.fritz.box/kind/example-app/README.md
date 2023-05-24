@@ -8,5 +8,5 @@ flux create tenant example-app \
   --with-namespace=example-app-staging \
   --with-namespace=example-app-production \
   --cluster-role=example-app-full-access \
-  --export > ./clusters/MBP-von-Manfred/docker-desktop/example-app/flux-tenant.yaml
+  --export > ./clusters/MBP-von-Manfred.fritz.boy/kind/example-app/flux-tenant.yaml
 ```
