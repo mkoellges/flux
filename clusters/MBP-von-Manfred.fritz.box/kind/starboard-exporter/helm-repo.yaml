@@ -1,9 +1,0 @@
----
-apiVersion: source.toolkit.fluxcd.io/v1beta2
-kind: HelmRepository
-metadata:
-  name: giantswarm
-  namespace: starboard
-spec:
-  interval: 1m0s
-  url: https://giantswarm.github.io/giantswarm-catalog
