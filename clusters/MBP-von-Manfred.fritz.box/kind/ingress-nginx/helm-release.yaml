@@ -19,7 +19,16 @@ spec:
   targetNamespace: ingress-nginx
   values:
     controller:
+      hostPort:
+        enabled: true
       metrics:
         service:
           annotations:
             ingressClassName: nginx
+      updateStrategy: 
+        rollingUpdate:
+          maxUnavailable: 1
+        type: RollingUpdate
+      resources:
+        autoscaling:
+          enabled: true
