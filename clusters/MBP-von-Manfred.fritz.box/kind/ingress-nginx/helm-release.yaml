@@ -32,8 +32,3 @@ spec:
             ingressClassName: nginx
       nodeSelector:
         kubernetes.io/hostname: monitoring-worker
-      resources:
-        autoscaling:
-          enabled: true
-          minReplicas: 3
-          maxReplicas: 9
