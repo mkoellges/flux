@@ -31,4 +31,4 @@ spec:
           annotations:
             ingressClassName: nginx
       nodeSelector:
-        ingress-ready: true
+        ingress : worker
