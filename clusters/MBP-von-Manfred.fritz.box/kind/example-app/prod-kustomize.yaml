@@ -1,0 +1,14 @@
+---
+apiVersion: kustomize.toolkit.fluxcd.io/v1beta2
+kind: Kustomization
+metadata:
+  name: example-app-production
+  namespace: example-app-production
+spec:
+  interval: 1m0s
+  path: ./overlay/production
+  prune: true
+  sourceRef:
+    kind: GitRepository
+    name: example-app
+  targetNamespace: example-app-production

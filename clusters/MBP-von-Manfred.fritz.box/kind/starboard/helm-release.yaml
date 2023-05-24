@@ -1,0 +1,18 @@
+---
+apiVersion: helm.toolkit.fluxcd.io/v2beta1
+kind: HelmRelease
+metadata:
+  name: starboard-operator
+  namespace: starboard
+spec:
+  chart:
+    spec:
+      chart: starboard-operator
+      reconcileStrategy: ChartVersion
+      sourceRef:
+        kind: HelmRepository
+        name: aqua
+  install:
+    createNamespace: true
+  interval: 1m0s
+  targetNamespace: starboard

@@ -1,0 +1,13 @@
+---
+apiVersion: kustomize.toolkit.fluxcd.io/v1beta2
+kind: Kustomization
+metadata:
+  name: weave-gitops
+  namespace: weave-gitops
+spec:
+  interval: 1m0s
+  path: ./k8s/base
+  prune: true
+  sourceRef:
+    kind: GitRepository
+    name: weave-gitops
