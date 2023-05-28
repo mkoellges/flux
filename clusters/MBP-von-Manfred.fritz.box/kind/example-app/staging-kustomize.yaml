@@ -6,7 +6,7 @@ metadata:
   namespace: example-app-staging
 spec:
   interval: 1m0s
-  path: ./overlay/staging
+  path: ./k8s/overlay/staging
   prune: true
   sourceRef:
     kind: GitRepository

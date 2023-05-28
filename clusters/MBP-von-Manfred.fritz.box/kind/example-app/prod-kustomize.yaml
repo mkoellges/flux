@@ -6,7 +6,7 @@ metadata:
   namespace: example-app-production
 spec:
   interval: 1m0s
-  path: ./overlay/production
+  path: ./k8s/overlay/production
   prune: true
   sourceRef:
     kind: GitRepository
