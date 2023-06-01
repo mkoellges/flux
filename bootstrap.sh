@@ -1,3 +1,5 @@
+#!/bin/bash
+
 flux bootstrap github \
 --owner=mkoellges \
 --repository=flux \
